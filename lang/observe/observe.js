@@ -414,6 +414,13 @@ steal('jquery/class').then(function() {
 				current._set(parts, value)
 			} else if (!parts.length ) {
 				// otherwise, we are setting it on this object
+				
+				//use setter if available
+ 				var setterName = "set" + prop.charAt(0).toUpperCase() + prop.slice(1);
+ 				if (typeof (this[setterName]) === "function") {
+ 					value = this[setterName](value);
+ 				}
+ 				
 				// todo: check if value is object and transform
 				// are we changing the value
 				if ( value !== current ) {
